@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -13,6 +14,7 @@ public class StoryKeyboardShortcutTests {
 
     @Test
     public void storyFirstTest() throws InterruptedException {
+
         //1. Go to story site
         driver.get("http://tanveer-pc:9724/web/story/story.html?debug&storyhub=tanveer-pc&gh=Guest/@tanveer-pc&pilot=tanveer-pc&preview=tanveer-pc&mediaservice=tanveer-pc");
         //driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
@@ -34,7 +36,6 @@ public class StoryKeyboardShortcutTests {
         WebElement searchText = driver.findElement(By.id("isc_30"));
         searchText.sendKeys("SSS_2477_01.mov");
 
-
         Thread.sleep(5000);
         WebElement selectVideo = driver.findElement(By.xpath("html/body/div[4]/div/div[1]/div/div[1]/div/div[2]/div[3]/div/div/div/div/div[2]/div[2]/div[3]/div[1]/div[3]"));
 
@@ -48,20 +49,37 @@ public class StoryKeyboardShortcutTests {
         timeLine.click();
 
         Thread.sleep(2000);
+        int xp1=0;
+        WebElement testtimecode1 = driver.findElement(By.xpath("//*[contains(text(),'00:0"+xp1+":')]"));
+        final String starttime = testtimecode1.getText();
+
         Actions action = new Actions(driver);
         action.sendKeys(Keys.SPACE).build().perform();
+        System.out.println(testtimecode1.getText());
+
+
         int ourtime = 9000;
         Thread.sleep(ourtime);
         int xp = (ourtime-1000)/1000;
         action.sendKeys(Keys.SPACE).build().perform();
         Thread.sleep(2000);
 
-        //timeLine.click();
+        timeLine.click();
         Thread.sleep(2000);
         WebElement testtimecode = driver.findElement(By.xpath("//*[contains(text(),'00:0"+xp+":')]"));
 
+
         System.out.println(testtimecode.getText());
-        System.out.println("Test");
+        System.out.println(testtimecode1.getText());
+
+
+        Assert.assertNotEquals(testtimecode.getText(), starttime);
+        //Assert.assertNotEquals("111", "1");
+
+
+
+
+
 
 
 
